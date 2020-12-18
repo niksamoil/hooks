@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from './use-effect'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// const MyContext = React.createContext();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// const App = () => {
+//     return (
+//         <MyContext.Provider value='Hello 123'>
+//             <Child/>
+//         </MyContext.Provider>
+//     );
+// };
+
+// const Child = () => {
+//     const value = useContext(MyContext);
+
+//     return <p>{value}</p>
+// }
+
+ReactDOM.render(<App/>, document.getElementById("root"));
