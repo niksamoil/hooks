@@ -51,8 +51,10 @@ const useRequest  = (request) => {
 // how to make our own hook
 const usePlanetInfo = (id) => {
 
+    // =! useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed.
+    const request = useCallback(() => getPlanet(id), [id]);
+
     // deleted logic and used custom hook
-    const request = () => getPlanet(id);
 
     return useRequest(request);
 };
