@@ -1,4 +1,5 @@
-import React, {useState, useEffect, Component} from 'react';
+/* eslint-disable no-unused-vars */
+import React, {useState, useEffect, useCallback} from 'react';
 
 const App = () => {
     const [value, setValue] = useState(1);
@@ -25,7 +26,7 @@ const App = () => {
 
 // universal function for data fetching
 const getPlanet = (id) => {
-    fetch(`https://swapi.dev/api/planets/${id}`)
+    return fetch(`https://swapi.dev/api/planets/${id}`)
     .then(res => res.json())
     .then(data => data);
 }
@@ -48,51 +49,26 @@ const useRequest  = (request) => {
 };
 
 // how to make our own hook
-const usePlanetInfo = ({id}) => {
-    const [planetName, setPlanetName] = useState(null);
+const usePlanetInfo = (id) => {
 
-    useEffect(() => {
-        let cancelled = false;
+    // deleted logic and used custom hook
+    const request = () => getPlanet(id);
 
-        fetch(`https://swapi.dev/api/planets/${id}`)
-        .then(res => res.json())
-        .then(data => {
-
-            !cancelled && setPlanetName(data.name);
-
-            return () => cancelled = true;
-        });
-    }, [id]);
-
-    return planetName;
+    return useRequest(request);
 };
 
 
 // useEffect for fetching data from API
 const PlanetInfo = ({id}) => {
 
-    const [planetName, setPlanetName] = useState(null);
+    // deleted logic, look previous commit
 
-    const planet = usePlanetInfo(id);
-
-
-    useEffect(() => {
-        let cancelled = false;
-
-        fetch(`https://swapi.dev/api/planets/${id}`)
-        .then(res => res.json())
-        .then(data => {
-
-            !cancelled && setPlanetName(data.name);
-
-            return () => cancelled = true;
-        });
-    }, [id]);
+    const data = usePlanetInfo(id);
 
 
     return (
         <div>
-            {id} - {planetName}
+            {id} - {data && data.name}
         </div>
     );
 };
